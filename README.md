@@ -1,8 +1,8 @@
-This is not an officially supported Google product.
+*This is not an officially supported Google product.*
 
 # Human Scene Transformer
 
-This repository is currently a placeholder for model code and adaptions to the [JRDB](dataset) corresponding to the following research paper:
+This repository is currently a placeholder for model code and adaptions to the [JRDB dataset](https://jrdb.erc.monash.edu/) corresponding to the following research paper:
 
 ## Robots That Can See - Leveraging Human Pose for Trajectory Prediction
 
