@@ -1,0 +1,68 @@
+# All available metrics.
+min_ade/metrics.ade.MinADE.cutoff_seconds = None
+min_ade1s/metrics.ade.MinADE.cutoff_seconds = 1.0
+min_ade2s/metrics.ade.MinADE.cutoff_seconds = 2.0
+min_ade3s/metrics.ade.MinADE.cutoff_seconds = 3.0
+min_ade5s/metrics.ade.MinADE.cutoff_seconds = 5.0
+
+ml_ade/metrics.ade.MLADE.cutoff_seconds = None
+ml_ade1s/metrics.ade.MLADE.cutoff_seconds = 1.0
+ml_ade2s/metrics.ade.MLADE.cutoff_seconds = 2.0
+ml_ade3s/metrics.ade.MLADE.cutoff_seconds = 3.0
+ml_ade5s/metrics.ade.MLADE.cutoff_seconds = 5.0
+
+pos_nll/metrics.pos_nll.PositionNegativeLogLikelihood.cutoff_seconds = None
+pos_nll1s/metrics.pos_nll.PositionNegativeLogLikelihood.cutoff_seconds = 1.0
+pos_nll2s/metrics.pos_nll.PositionNegativeLogLikelihood.cutoff_seconds = 2.0
+pos_nll3s/metrics.pos_nll.PositionNegativeLogLikelihood.cutoff_seconds = 3.0
+pos_nll5s/metrics.pos_nll.PositionNegativeLogLikelihood.cutoff_seconds = 5.0
+
+# Training metrics.
+get_metrics.train_metrics = {
+    'loss': @metrics.Mean,
+    'loss_position': @metrics.Mean,
+    'loss_orientation': @metrics.Mean,
+
+    'min_ade': @min_ade/metrics.ade.MinADE,
+    'min_ade1s': @min_ade1s/metrics.ade.MinADE,
+    'min_ade2s': @min_ade2s/metrics.ade.MinADE,
+    'min_ade3s': @min_ade3s/metrics.ade.MinADE,
+    #'min_ade5s': @min_ade5s/metrics.ade.MinADE,
+
+    'ml_ade': @ml_ade/metrics.ade.MLADE,
+    'ml_ade1s': @ml_ade1s/metrics.ade.MLADE,
+    'ml_ade2s': @ml_ade2s/metrics.ade.MLADE,
+    'ml_ade3s': @ml_ade3s/metrics.ade.MLADE,
+    #'ml_ade5s': @ml_ade5s/metrics.ade.MLADE,
+
+    'pos_nll': @pos_nll/metrics.pos_nll.PositionNegativeLogLikelihood,
+    'pos_nll1s': @pos_nll1s/metrics.pos_nll.PositionNegativeLogLikelihood,
+    'pos_nll2s': @pos_nll2s/metrics.pos_nll.PositionNegativeLogLikelihood,
+    'pos_nll3s': @pos_nll3s/metrics.pos_nll.PositionNegativeLogLikelihood,
+    #'pos_nll5s': @pos_nll5s/metrics.pos_nll.PositionNegativeLogLikelihood,
+}
+
+# Eval metrics.
+get_metrics.eval_metrics = {
+    'loss': @metrics.Mean,
+    'loss_position': @metrics.Mean,
+    'loss_orientation': @metrics.Mean,
+
+    'min_ade': @min_ade/metrics.ade.MinADE,
+    'min_ade1s': @min_ade1s/metrics.ade.MinADE,
+    'min_ade2s': @min_ade2s/metrics.ade.MinADE,
+    'min_ade3s': @min_ade3s/metrics.ade.MinADE,
+    #'min_ade5s': @min_ade5s/metrics.ade.MinADE,
+
+    'ml_ade': @ml_ade/metrics.ade.MLADE,
+    'ml_ade1s': @ml_ade1s/metrics.ade.MLADE,
+    'ml_ade2s': @ml_ade2s/metrics.ade.MLADE,
+    'ml_ade3s': @ml_ade3s/metrics.ade.MLADE,
+    #'ml_ade5s': @ml_ade5s/metrics.ade.MLADE,
+
+    'pos_nll': @pos_nll/metrics.pos_nll.PositionNegativeLogLikelihood,
+    'pos_nll1s': @pos_nll1s/metrics.pos_nll.PositionNegativeLogLikelihood,
+    'pos_nll2s': @pos_nll2s/metrics.pos_nll.PositionNegativeLogLikelihood,
+    'pos_nll3s': @pos_nll3s/metrics.pos_nll.PositionNegativeLogLikelihood,
+    #'pos_nll5s': @pos_nll5s/metrics.pos_nll.PositionNegativeLogLikelihood,
+}

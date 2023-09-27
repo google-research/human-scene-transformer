@@ -1,0 +1,9 @@
+PedestriansDatasetParams.path = <dataset_path>
+PedestriansDatasetParams.dataset = 'eth'
+PedestriansDatasetParams.train_config = 'train'  # train, trainval
+PedestriansDatasetParams.eval_config = 'val' # val, test
+
+PedestriansDatasetParams.num_history_steps = 7
+PedestriansDatasetParams.num_steps = 20
+PedestriansDatasetParams.num_agents = 14
+PedestriansDatasetParams.timestep = 0.4

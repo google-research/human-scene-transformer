@@ -1,0 +1,10 @@
+TrainingParams.batch_size = 16
+TrainingParams.shuffle_buffer_size = 10000
+TrainingParams.total_train_steps = 1e6
+TrainingParams.warmup_steps = 5e4
+TrainingParams.peak_learning_rate = 5e-4
+#TrainingParams.global_clipnorm = 1.
+TrainingParams.batches_per_train_step = 25000
+TrainingParams.batches_per_eval_step = 2000
+TrainingParams.eval_every_n_step = 1e4
+TrainingParams.loss = @MinNLLPositionMixtureCategoricalCrossentropyLoss
