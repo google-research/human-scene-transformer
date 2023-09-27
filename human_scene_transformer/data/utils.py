@@ -37,12 +37,13 @@ def maybe_makedir(path):
 
 
 def get_file_handle(path, mode='rt'):
-  file_handle = os.Open(path, mode=mode)
+  file_handle = open(path, mode)
   return file_handle
 
 
 def list_scenes(input_path):
   scenes = os.listdir(os.path.join(input_path, 'labels', 'labels_3d'))
+  scenes.sort()
   return [scene[:-5] for scene in scenes]
 
 

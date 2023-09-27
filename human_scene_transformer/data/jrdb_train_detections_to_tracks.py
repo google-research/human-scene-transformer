@@ -30,7 +30,7 @@ import tqdm
 
 INPUT_PATH = '<data_path>'
 OUTPUT_PATH = os.path.join(
-   input_path, '/processed/labels/labels_detections_3d')
+   INPUT_PATH, 'processed/labels/labels_detections_3d')
 
 
 def get_agents_3d_bounding_box_dict(input_path, scene):
@@ -129,7 +129,6 @@ def jrdb_train_detections_to_tracks(input_path, output_path):
   scenes = utils.list_scenes(
       os.path.join(input_path, 'train_dataset'))
   for scene in tqdm.tqdm(scenes):
-    print(f'Processing {scene}')
     bb_dict = get_agents_3d_bounding_box_dict(
         os.path.join(input_path, 'train_dataset'), scene)
     bb_3d_df = pd.DataFrame.from_dict(
@@ -174,7 +173,7 @@ def jrdb_train_detections_to_tracks(input_path, output_path):
 
     labels_dict = detections_to_dict(matched_df)
 
-    with os.Open(f"{output_path}/{scene}.json", 'w') as write_file:
+    with open(f"{output_path}/{scene}.json", 'w') as write_file:
       json.dump(labels_dict, write_file, indent=2, ensure_ascii=True)
 
 if __name__ == '__main__':

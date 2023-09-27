@@ -1,4 +1,4 @@
-PedestriansDatasetParams.path = <dataset_path>
+PedestriansDatasetParams.path = '<dataset_path>'
 PedestriansDatasetParams.dataset = 'eth'
 PedestriansDatasetParams.train_config = 'train'  # train, trainval
 PedestriansDatasetParams.eval_config = 'val' # val, test

@@ -27,13 +27,14 @@ from human_scene_transformer.model import model as hst_model
 from human_scene_transformer.model import model_params as mp
 
 import tensorflow as tf
-import tensorflow_models as tfm
+
+import official.modeling.optimization.lr_schedule as tfm_lr_schedule
 
 _LOGGING_INTERVAL = 1
 
 
 def get_file_handle(path, mode='rt'):
-  file_handle = os.Open(path, mode=mode)
+  file_handle = open(path, mode)
   return file_handle
 
 
@@ -78,8 +79,7 @@ def _get_learning_rate_schedule(
 
   decay_schedule = tf.keras.optimizers.schedules.CosineDecay(
       initial_learning_rate=learning_rate, decay_steps=total_steps, alpha=alpha)
-  return tfm.optimization.LinearWarmup(
-      decay_schedule, warmup_steps, 1e-10)
+  return tfm_lr_schedule.LinearWarmup(decay_schedule, warmup_steps, 1e-10)
 
 
 def train_model(
