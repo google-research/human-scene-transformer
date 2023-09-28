@@ -9,7 +9,7 @@
 5. Download and extract `Train Detections` from the JRDB 2019 section to `<data_path>/detections`.
 
 ## Get the Leaderboard Test Set Tracks
-3. Download and extract the best leaderboard  [3D tracking result](https://jrdb.erc.monash.edu/leaderboards/download/1680) to `<data_path>/test_dataset/labels/raw_leaderboard/`.
+Download and extract this leaderboard  [3D tracking result](https://jrdb.erc.monash.edu/leaderboards/download/1605) to `<data_path>/test_dataset/labels/raw_leaderboard/`. Such that you have `<data_path>/test_dataset/labels/raw_leaderboard/00XX.txt` This is the best available leaderboard tracker at the time the code was developed.
 
 ## Get the Robot Odometry Preprocessed Keypoints
 

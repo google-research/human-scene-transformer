@@ -8,10 +8,10 @@ requires-python = ">=3.8"
 license = {file = "LICENSE"}
 authors = [
   {name = "Tim Salzmann", email="Tim.Salzmann@tum.de"},
-  {name = "Lewis Chiang", email=""},
-  {name = "Markus Ryll", email=""},
-  {name = "Dorsa Sadigh", email=""},
-  {name = "Carolina Parada", email=""},
+  {name = "Lewis Chiang"},
+  {name = "Markus Ryll"},
+  {name = "Dorsa Sadigh"},
+  {name = "Carolina Parada"},
   {name = "Alex Bewley", email="bewley@google.com"}]
 classifiers = [  # List of https://pypi.org/classifiers/
     "License :: OSI Approved :: Apache Software License",
@@ -22,16 +22,18 @@ keywords = []
 # pip dependencies of the project
 # Installed locally with `pip install -e .`
 dependencies = [
-  numpy,
-  scipy,
-  pandas,
-  open3d,
-  tensorflow,
-  tensorflow_models,
-  tensorflow_probability
-  gin-config,
-  absl-py,
-  tqdm
+  "absl-py>=1.4",
+  "gin-config>=0.5",
+  "numpy>=1.24",
+  "open3d>=0.17",
+  "pandas>=2.0",
+  "scipy>=1.10",
+  "tensorflow>=2.13",
+  "tensorflow-datasets>=4.9",
+  "tensorflow-graphics>=2021.12",
+  "tensorflow-probability>=0.21",
+  "tf-models-official>=2.5",
+  "tqdm>=4.66"
 ]
 
 # `version` is automatically set by flit to use `human_scene_transformer.__version__`

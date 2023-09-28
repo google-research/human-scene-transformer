@@ -109,11 +109,12 @@ def main(argv: Sequence[str]) -> None:
       [os.path.join(_MODEL_PATH.value, 'params', 'operative_config.gin')],
       None,
       skip_unknown=True)
-  logging.info('Actual gin config used:')
-  logging.info(gin.config_str())
+  print('Actual gin config used:')
+  print(gin.config_str())
 
   evaluation(_CKPT_PATH.value)
 
 
 if __name__ == '__main__':
+  logging.set_verbosity(logging.ERROR)
   app.run(main)

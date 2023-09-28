@@ -55,7 +55,7 @@ TEST_SCENES = ['clark-center-2019-02-28_1',
  'tressider-2019-04-26_3_test']
 
 
-JRDBDatasetParams.path = <dataset_path>
+JRDBDatasetParams.path = '<dataset_path>'
 
 JRDBDatasetParams.train_scenes = %TRAIN_SCENES
 JRDBDatasetParams.eval_scenes = %TEST_SCENES
