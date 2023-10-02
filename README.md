@@ -35,12 +35,12 @@ input and labels for HST.
 Note that we do not purely use the ground truth hand labeled tracks in the JRDB
 train dataset as we find them to be overly smoothed giving away the future human
 movement.
-To adapt the JRDB dataset for prediction please follow [this](/data) README.
+To adapt the JRDB dataset for prediction please follow [this](/human_scene_transformer/data) README.
 
 Make sure to adapt `<data_path>` in `config/<jrdb/pedestrians>/dataset_params.gin` accordingly.
 
 If you want to use the JRDB dataset for trajectory prediction in PyTorch we
-provide a [PyTorch Dataset wrapper](/jrdb/torch_dataset.py) for the processed dataset.
+provide a [PyTorch Dataset wrapper](/human_scene_transformer/jrdb/torch_dataset.py) for the processed dataset.
 
 ### Pedestrians ETH/UCY
 Please download the raw data [here](https://github.com/StanfordASL/Trajectron-plus-plus/tree/master/experiments/pedestrians/raw).
@@ -90,7 +90,7 @@ Compared to the published paper we improved our data processing and fixed small
 bugs in this code release. If you compare against our method please use the
 following updated results.
 
-On the JRDB dataset with dataset options as set [here](/config/jrdb/dataset_params.py):
+On the JRDB dataset with dataset options as set [here](/human_scene_transformer/config/jrdb/dataset_params.py):
 
 |        | AVG  |  @ 1s | @ 2s |  @ 3s | @ 4s  |
 |--------|------|-------|------|-------|-------|
