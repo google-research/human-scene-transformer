@@ -1,8 +1,7 @@
 # How to Contribute
 
-The primary purpose of this repository is to provide a record of published work
-and we do not expect to receive pull requests. If you'd nonetheless like to
-contribute, there are just a few small guidelines you need to follow.
+We'd love to accept your patches and contributions to this project. There are
+just a few small guidelines you need to follow.
 
 ## Contributor License Agreement
 
