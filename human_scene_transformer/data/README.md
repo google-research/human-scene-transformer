@@ -1,3 +1,5 @@
+*This is not an officially supported Google product.*
+
 # JRDB for Prediction Dataset Setup
 
 ## Get the JRDB Dataset
@@ -16,6 +18,8 @@ Download and extract this leaderboard  [3D tracking result](https://jrdb.erc.mon
 Download the compressed data file [here](https://storage.googleapis.com/gresearch/human_scene_transformer/data.zip).
 
 Extract the files and move them to `<data_path>/processed/` such that you have `<data_path>/processed/odoemtry_train`,  `<data_path>/processed/odoemtry_test` and `<data_path>/processed/labels/labels_3d_keypoints_train/`, `<data_path>/processed/labels/labels_3d_keypoints_test/`.
+
+Alternatively you can extract the robot odometry from the raw rosbags yourself via `extract_robot_odometry_from_rosbag.py`.
 
 ## Create Real-World Tracks for Test Data
 
