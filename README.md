@@ -1,5 +1,18 @@
 # Human Scene Transformer
 
+The (Human) Scene Transformer architecture (as described [here](https://arxiv.org/pdf/2309.17209.pdf) and [here)](https://arxiv.org/pdf/2106.08417.pdf) is a general and extendable trajectory prediction framework which threats trajectory prediction as a sequence to sequence problem and models it in a Transformer architecture.
+
+It is straightforward to extend with
+
+- additional input features
+- custom environment encoder
+- different loss functions
+- ...
+
+*This is not an officially supported Google product.*
+
+---
+
 ![Human Scene Transformer](./human_scene_transformer/images/hero.png)
 
 Anticipating the motion of all humans in dynamic environments such as homes and offices is critical to enable safe and effective robot navigation. Such spaces remain challenging as humans do not follow strict rules of motion and there are often multiple occluded entry points such as corners and doors that create opportunities for sudden encounters. In this work, we present a Transformer based architecture to predict human future trajectories in human-centric environments from input features including human positions, head orientations, and 3D skeletal keypoints from onboard in-the-wild sensory information. The resulting model captures the inherent uncertainty for future human trajectory prediction and achieves state-of-the-art performance on common prediction benchmarks and a human tracking dataset captured from a mobile robot adapted for the prediction task. Furthermore, we identify new agents with limited historical data as a major contributor to error and demonstrate the complementary nature of 3D skeletal poses in reducing prediction error in such challenging scenarios.
@@ -16,8 +29,6 @@ If you use this work please cite our paper
   doi={10.1109/LRA.2023.3312035}
 }
 ```
-
-*This is not an officially supported Google product.*
 
 ---
 
@@ -107,6 +118,18 @@ On the ETH/UCY Pedestrians Dataset:
 
 
 ### Checkpoints
-You can download trained model checkpoints for both `JRDB` and `Pedestrians (ETH/UCY)` datasets [here]()(Coming Soon).
+You can download trained model checkpoints for both `JRDB` and `Pedestrians (ETH/UCY)` datasets [here]() (Coming Soon).
 
 To evaluate the pre-trained checkpoints you will have to adjust the path to the dataset in the respective `params/operative_config.gin` file.
+
+## Runtime
+Evaluation of forward inference runtime with single output mode:
+
+| #Humans | M1 - CPU | A100 - GPU |
+|---------|----------|------------|
+| 1       |   40Hz   |    12Hz    |
+| 10      |   30Hz   |    11Hz    |
+| 20      |   23Hz   |    11Hz    |
+| 50      |   12Hz   |    11Hz    |
+| 100     |    5Hz   |    11Hz    |
+| 150     |          |    11Hz    |
