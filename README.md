@@ -110,3 +110,15 @@ On the ETH/UCY Pedestrians Dataset:
 You can download trained model checkpoints for both `JRDB` and `Pedestrians (ETH/UCY)` datasets [here]()(Coming Soon).
 
 To evaluate the pre-trained checkpoints you will have to adjust the path to the dataset in the respective `params/operative_config.gin` file.
+
+## Runtime
+Evaluation of forward inference runtime with single output mode:
+
+| #Humans | M1 - CPU | A100 - GPU |
+|---------|----------|------------|
+| 1       |   40Hz   |    12Hz    |
+| 10      |   30Hz   |    11Hz    |
+| 20      |   23Hz   |    11Hz    |
+| 50      |   12Hz   |    11Hz    |
+| 100     |    5Hz   |    11Hz    |
+| 150     |          |    11Hz    |
