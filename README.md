@@ -116,6 +116,8 @@ On the ETH/UCY Pedestrians Dataset:
 | MinADE | 0.41 | 0.10  | 0.24 | 0.17  | 0.14  | 0.21  |
 | MinFDE | 0.73 | 0.14  | 0.44 | 0.30  | 0.24  | 0.37  |
 
+### JRDB Train / Test Split
+The train / test split is implemented [here](/human_scene_transformer/config/jrdb/dataset_params.py).
 
 ### Checkpoints
 You can download trained model checkpoints for both `JRDB` and `Pedestrians (ETH/UCY)` datasets [here]() (Coming Soon).

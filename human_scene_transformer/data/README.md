@@ -6,9 +6,9 @@
 
 1. Go to https://jrdb.erc.monash.edu/#downloads
 2. Create a User or login.
-3. Download and extract `JRDB 2022 Full Train Dataset` to `<data_path>/train_dataset`.
-4. Download and extract `JRDB 2022 Full Test Dataset` to `<data_path>/test_dataset`.
-5. Download and extract `Train Detections` from the JRDB 2019 section to `<data_path>/detections`.
+3. Download and extract [JRDB 2022 Full Train Dataset](https://jrdb.erc.monash.edu/static/downloads/JRDB2022/train_dataset_with_activity/train_dataset_with_activity.zip) to `<data_path>/train_dataset`.
+4. Download and extract [JRDB 2022 Full Test Dataset](https://jrdb.erc.monash.edu/static/downloads/JRDB2022/train_dataset_with_activity/train_dataset_with_activity.zip) to `<data_path>/test_dataset`.
+5. Download and extract [Train Detections](https://jrdb.erc.monash.edu/static/downloads/train_detections.zip) from the JRDB 2019 section to `<data_path>/detections`.
 
 ## Get the Leaderboard Test Set Tracks
 Download and extract this leaderboard  [3D tracking result](https://jrdb.erc.monash.edu/leaderboards/download/1605) to `<data_path>/test_dataset/labels/raw_leaderboard/`. Such that you have `<data_path>/test_dataset/labels/raw_leaderboard/00XX.txt` This is the best available leaderboard tracker at the time the code was developed.
