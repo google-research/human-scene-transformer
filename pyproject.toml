@@ -4,7 +4,7 @@
 name = "human_scene_transformer"
 description = "Human Scene Transformer: Trajectory Prediction in Human-Centered Environments."
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.10"
 license = {file = "LICENSE"}
 authors = [
   {name = "Tim Salzmann", email="Tim.Salzmann@tum.de"},
