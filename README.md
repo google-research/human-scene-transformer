@@ -32,6 +32,18 @@ If you use this work please cite our paper
 
 ---
 
+## Prerequisites
+
+Install requirements via `pip install -r requirements.txt`.
+
+Please note that this codebase is not compatible with the Intel MKL backend for
+tensorflow. The MKL backend supports tensors up to 5 dimensions which is
+not sufficient for parts of this codebase. Should you have a MKL backed
+tensorflow installation or are running into MKL related
+[errors](https://github.com/google-research/human-scene-transformer/issues/11),
+please disable the tensorflow MKL backend by setting the environment variable
+`TF_ENABLE_ONEDNN_OPTS=0` and `TF_DISABLE_MKL=1`.
+
 ## Data
 
 ### JRDB
