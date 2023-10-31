@@ -27,6 +27,7 @@ from human_scene_transformer.jrdb import dataset_params as jrdb_dataset_params
 from human_scene_transformer.jrdb import input_fn
 from human_scene_transformer.model import model as hst_model
 from human_scene_transformer.model import model_params
+from human_scene_transformer.model import scene_encoder  # pylint: disable=unused-import
 import pandas as pd
 import tensorflow as tf
 import tqdm
@@ -61,7 +62,7 @@ TEST_SCENES = [
     'tressider-2019-04-26_3_test',
 ]
 
-TIMESTEP_VISIBILITY_THRESHOLD = 2
+TIMESTEP_VISIBILITY_THRESHOLD = 6
 
 _MODEL_PATH = flags.DEFINE_string(
     'model_path',
@@ -207,6 +208,8 @@ def ctrv_robot_pred(pos, orient, vel, turning_rate, steps):
 def evaluation(checkpoint_path, dataset_path, output_path):
   """Evaluates Model."""
 
+  tf.keras.utils.set_random_seed(111)
+
   maybe_makedir(output_path)
 
   d_params = jrdb_dataset_params.JRDBDatasetParams(
@@ -216,7 +219,7 @@ def evaluation(checkpoint_path, dataset_path, output_path):
           'agents/keypoints',
           'robot/position',
           'robot/orientation',
-          # 'scene/pc',
+          'scene/pc',
       ],
       num_agents=None,
   )
