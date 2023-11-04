@@ -132,7 +132,7 @@ On the ETH/UCY Pedestrians Dataset:
 The train / test split is implemented [here](/human_scene_transformer/config/jrdb/dataset_params.py).
 
 ### Checkpoints
-You can download trained model checkpoints for both `JRDB` and `Pedestrians (ETH/UCY)` datasets [here]() (Coming Soon).
+You can download trained model checkpoints for both `JRDB` and `Pedestrians (ETH/UCY)` datasets [here](https://storage.googleapis.com/gresearch/human_scene_transformer/checkpoints.zip).
 
 To evaluate the pre-trained checkpoints you will have to adjust the path to the dataset in the respective `params/operative_config.gin` file.
 

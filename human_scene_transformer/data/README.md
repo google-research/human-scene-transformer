@@ -63,3 +63,7 @@ Set `<output_path>` in `jrdb_preprocess_train.py` and `jrdb_preprocess_test.py` 
 ```python jrdb_preprocess_train.py```
 
 ```python jrdb_preprocess_test.py```
+
+Please note that this can take multiple hours due to the processing of the scene's
+pointclouds. If you do not need the pointclouds you can speed up the processing
+by setting `POINTCLOUD=False` in both files.
