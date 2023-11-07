@@ -19,16 +19,41 @@ import collections
 import json
 import os
 
+from absl import app
+from absl import flags
+
 from human_scene_transformer.data import utils
 import numpy as np
 import pandas as pd
 import tensorflow as tf
 import tqdm
 
-INPUT_PATH = '<dataset_path>'
-OUTPUT_PATH = '<output_path>'
+_INPUT_PATH = flags.DEFINE_string(
+    'input_path',
+    default=None,
+    help='Path to jrdb2022 dataset.'
+)
 
-POINTCLOUD = True
+_OUTPUT_PATH = flags.DEFINE_string(
+    'output_path',
+    default=None,
+    help='Path to output folder.'
+)
+
+_PROCESS_POINTCLOUDS = flags.DEFINE_bool(
+    'process_pointclouds',
+    default=True,
+    help='Whether to process pointclouds.'
+)
+
+_MAX_DISTANCE_TO_ROBOT = flags.DEFINE_float(
+    'max_distance_to_robot',
+    default=15.,
+    help=('Maximum distance of agent to the robot to be included'
+          ' in the processed dataset.')
+)
+
+
 AGENT_KEYPOINTS = True
 FROM_DETECTIONS = True
 
@@ -88,6 +113,8 @@ def get_agents_features(agents_dict, max_distance_to_robot=10):
 def jrdb_preprocess_train(input_path, output_path):
   """Preprocesses the raw train split of JRDB."""
 
+  tf.keras.utils.set_random_seed(123)
+
   subsample = 1
 
   scenes = utils.list_scenes(
@@ -104,11 +131,11 @@ def jrdb_preprocess_train(input_path, output_path):
       )
 
     agents_features = utils.get_agents_features_with_box(
-        agents_dict, max_distance_to_robot=15.0
+        agents_dict, max_distance_to_robot=_MAX_DISTANCE_TO_ROBOT.value
     )
 
     robot_odom = utils.get_robot(
-        os.path.join(input_path, 'processed', 'odometry_train'), scene
+        os.path.join(input_path, 'processed', 'odometry', 'train'), scene
     )
 
     agents_df = pd.DataFrame.from_dict(
@@ -118,7 +145,8 @@ def jrdb_preprocess_train(input_path, output_path):
     if AGENT_KEYPOINTS:
       keypoints = utils.get_agents_keypoints(
           os.path.join(
-              input_path, 'processed', 'labels', 'labels_3d_keypoints_train'),
+              input_path, 'processed', 'labels',
+              'labels_3d_keypoints', 'train'),
           scene,
       )
       keypoints_df = pd.DataFrame.from_dict(
@@ -207,7 +235,7 @@ def jrdb_preprocess_train(input_path, output_path):
         os.path.join(output_path, scene, 'robot', 'orientation')
     )
 
-    if POINTCLOUD:
+    if _PROCESS_POINTCLOUDS.value:
       scene_pointcloud_dict = utils.get_scene_poinclouds(
           os.path.join(input_path, 'train_dataset'),
           scene,
@@ -238,5 +266,14 @@ def jrdb_preprocess_train(input_path, output_path):
           os.path.join(output_path, scene, 'scene', 'pc'), compression='GZIP'
       )
 
+
+def main(argv):
+  if len(argv) > 1:
+    raise app.UsageError('Too many command-line arguments.')
+  jrdb_preprocess_train(_INPUT_PATH.value, _OUTPUT_PATH.value)
+
 if __name__ == '__main__':
-  jrdb_preprocess_train(INPUT_PATH, OUTPUT_PATH)
+  flags.mark_flags_as_required([
+      'input_path', 'output_path'
+  ])
+  app.run(main)

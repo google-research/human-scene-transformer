@@ -19,6 +19,9 @@
 import json
 import os
 
+from absl import app
+from absl import flags
+
 from human_scene_transformer.data import box_utils
 from human_scene_transformer.data import utils
 import numpy as np
@@ -28,9 +31,17 @@ import tensorflow as tf
 import tqdm
 
 
-INPUT_PATH = '<data_path>'
-OUTPUT_PATH = os.path.join(
-   INPUT_PATH, 'processed/labels/labels_detections_3d')
+_INPUT_PATH = flags.DEFINE_string(
+    'input_path',
+    default=None,
+    help='Path to jrdb2022 dataset.'
+)
+
+_OUTPUT_PATH = flags.DEFINE_string(
+    'output_path',
+    default=None,
+    help='Path to output folder.'
+)
 
 
 def get_agents_3d_bounding_box_dict(input_path, scene):
@@ -176,5 +187,17 @@ def jrdb_train_detections_to_tracks(input_path, output_path):
     with open(f"{output_path}/{scene}.json", 'w') as write_file:
       json.dump(labels_dict, write_file, indent=2, ensure_ascii=True)
 
+
+def main(argv):
+  if len(argv) > 1:
+    raise app.UsageError('Too many command-line arguments.')
+  if _OUTPUT_PATH.value is None:
+    output_path = os.path.join(_INPUT_PATH.value,
+                               'processed/labels/labels_detections_3d')
+  else:
+    output_path = _OUTPUT_PATH.value
+  jrdb_train_detections_to_tracks(_INPUT_PATH.value, output_path)
+
 if __name__ == '__main__':
-  jrdb_train_detections_to_tracks(INPUT_PATH, OUTPUT_PATH)
+  flags.mark_flags_as_required(['input_path'])
+  app.run(main)

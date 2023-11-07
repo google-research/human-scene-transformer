@@ -17,16 +17,54 @@
 
 import os
 
+from absl import app
+from absl import flags
+
 from human_scene_transformer.data import utils
 import numpy as np
 import pandas as pd
 import tensorflow as tf
 import tqdm
 
-INPUT_PATH = '<dataset_path>'
-OUTPUT_PATH = '<output_path>'
 
-POINTCLOUD = True
+_INPUT_PATH = flags.DEFINE_string(
+    'input_path',
+    default=None,
+    help='Path to jrdb2022 dataset.'
+)
+
+_OUTPUT_PATH = flags.DEFINE_string(
+    'output_path',
+    default=None,
+    help='Path to output folder.'
+)
+
+_PROCESS_POINTCLOUDS = flags.DEFINE_bool(
+    'process_pointclouds',
+    default=True,
+    help='Whether to process pointclouds.'
+)
+
+_MAX_DISTANCE_TO_ROBOT = flags.DEFINE_float(
+    'max_distance_to_robot',
+    default=15.,
+    help=('Maximum distance of agent to the robot to be included'
+          ' in the processed dataset.')
+)
+
+_TRACKING_METHOD = flags.DEFINE_string(
+    'tracking_method',
+    default='ss3d_mot',
+    help='Name of tracking method to use.'
+)
+
+_TRACKING_CONFIDENCE_THRESHOLD = flags.DEFINE_float(
+    'tracking_confidence_threshold',
+    default=.0,
+    help=('Confidence threshold for tracked agent instance to be included'
+          ' in the processed dataset.')
+)
+
 AGENT_KEYPOINTS = True
 FROM_DETECTIONS = True
 
@@ -63,7 +101,8 @@ def get_agents_features_df_with_box(
   ]
   scene_data_file = utils.get_file_handle(
       os.path.join(
-          input_path, 'labels', 'raw_leaderboard', f'{scene_id:04}' + '.txt'
+          input_path, 'labels', _TRACKING_METHOD.value,
+          f'{scene_id:04}' + '.txt'
       )
   )
   df = pd.read_csv(scene_data_file, sep=' ', names=jrdb_header)
@@ -73,7 +112,7 @@ def get_agents_features_df_with_box(
         [p[..., 2], -p[..., 0], -p[..., 1] + (0.742092 - 0.606982)], axis=-1
     )
 
-  df = df[df['score'] >= 0.01]
+  df = df[df['score'] >= _TRACKING_CONFIDENCE_THRESHOLD.value]
 
   df['p'] = df[['x', 'y', 'z']].apply(
       lambda s: camera_to_lower_velodyne(s.to_numpy()), axis=1
@@ -95,6 +134,10 @@ def get_agents_features_df_with_box(
 
 
 def jrdb_preprocess_test(input_path, output_path):
+  """Preprocesses the raw test split of JRDB."""
+
+  tf.keras.utils.set_random_seed(123)
+
   scenes = list_test_scenes(os.path.join(input_path, 'test_dataset'))
   subsample = 1
   for scene in tqdm.tqdm(scenes):
@@ -102,17 +145,18 @@ def jrdb_preprocess_test(input_path, output_path):
     agents_df = get_agents_features_df_with_box(
         os.path.join(input_path, 'test_dataset'),
         scenes.index(scene),
-        max_distance_to_robot=15.0,
+        max_distance_to_robot=_MAX_DISTANCE_TO_ROBOT.value,
     )
 
     robot_odom = utils.get_robot(
-        os.path.join(input_path, 'processed', 'odometry_test'), scene
+        os.path.join(input_path, 'processed', 'odometry', 'test'), scene
     )
 
     if AGENT_KEYPOINTS:
       keypoints = utils.get_agents_keypoints(
           os.path.join(
-              input_path, 'processed', 'labels', 'labels_3d_keypoints_test'
+              input_path, 'processed', 'labels',
+              'labels_3d_keypoints', 'test', _TRACKING_METHOD.value
           ),
           scene,
       )
@@ -202,7 +246,7 @@ def jrdb_preprocess_test(input_path, output_path):
         os.path.join(output_path, scene_save_name, 'robot', 'orientation')
     )
 
-    if POINTCLOUD:
+    if _PROCESS_POINTCLOUDS.value:
       scene_pointcloud_dict = utils.get_scene_poinclouds(
           os.path.join(input_path, 'test_dataset'), scene, subsample=subsample
       )
@@ -231,5 +275,14 @@ def jrdb_preprocess_test(input_path, output_path):
           compression='GZIP',
       )
 
+
+def main(argv):
+  if len(argv) > 1:
+    raise app.UsageError('Too many command-line arguments.')
+  jrdb_preprocess_test(_INPUT_PATH.value, _OUTPUT_PATH.value)
+
 if __name__ == '__main__':
-  jrdb_preprocess_test(INPUT_PATH, OUTPUT_PATH)
+  flags.mark_flags_as_required([
+      'input_path', 'output_path'
+  ])
+  app.run(main)

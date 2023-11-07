@@ -22,6 +22,7 @@ import gin
 from human_scene_transformer import is_hidden_generators
 from human_scene_transformer.model import agent_feature_encoder
 from human_scene_transformer.model import head
+from human_scene_transformer.model import scene_encoder as _
 
 
 @gin.configurable

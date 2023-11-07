@@ -1,0 +1,32 @@
+ModelParams.agents_position_key = 'agents/position'
+ModelParams.agents_feature_config = {
+    'agents/position': @AgentPositionEncoder,
+    'agents/keypoints': @AgentKeypointsEncoder,
+    #'agents/gaze': @Agent2DOrientationEncoder,
+}
+ModelParams.hidden_size = 128
+ModelParams.feature_embedding_size = 128
+ModelParams.transformer_ff_dim = 128
+
+ModelParams.num_heads = 4
+ModelParams.num_modes = 4
+ModelParams.scene_encoder = @PointCloudEncoderLayer
+ModelParams.attn_architecture = (
+    'self-attention',
+    'self-attention',
+    'cross-attention',
+    'multimodality_induction',
+    'self-attention',
+    'self-attention-mode',
+    'self-attention',
+    'self-attention-mode',
+    )
+ModelParams.mask_style = "has_historic_data"
+ModelParams.drop_prob = 0.1
+ModelParams.prediction_head = @Prediction2DPositionHeadLayer
+
+ModelParams.num_history_steps = 11
+ModelParams.num_steps = 24
+ModelParams.timestep = 0.4
+# Must be one of the classes in is_hidden_generators.py.
+ModelParams.is_hidden_generator = @BPIsHiddenGenerator

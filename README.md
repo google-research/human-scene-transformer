@@ -1,3 +1,5 @@
+:trophy: Winner of the [2023 JRDB Trajectory Prediction Challenge](https://jrdb.erc.monash.edu/leaderboards/trajectory)
+
 # Human Scene Transformer
 
 The (Human) Scene Transformer architecture (as described [here](https://arxiv.org/pdf/2309.17209.pdf) and [here)](https://arxiv.org/pdf/2106.08417.pdf) is a general and extendable trajectory prediction framework which threats trajectory prediction as a sequence to sequence problem and models it in a Transformer architecture.
@@ -78,6 +80,21 @@ python train.py --model_base_dir=./model/jrdb  --gin_files=./config/jrdb/trainin
 ### Pedestrians ETH/UCY
 ```
 python train.py --model_base_dir=./models/pedestrians_eth  --gin_files=..config/pedestrians/training_params.gin --gin_files=..config/pedestrians/model_params.gin --gin_files=./config/pedestrians/dataset_params.gin --gin_files=./config/pedestrians/metrics.gin --dataset=PEDESTRIANS
+```
+
+---
+
+## JRDB Trajectory Prediction Challenge Results
+To reproduce our winning results in the [2023 JRDB Trajectory Prediction Challenge](https://jrdb.erc.monash.edu/leaderboards/trajectory):
+
+- Make sure that you follow the [data pre-processing instructions](/human_scene_transformer/data) and pay special attention to where the instructions differentiate between the JRDB Challenge dataset and the original paper dataset.
+
+- Download the trained challenge model [here](https://storage.googleapis.com/gresearch/human_scene_transformer/jrdb_challenge_checkpoint.zip)
+
+- Run
+
+```
+python jrdb/eval_challenge.py --model_path=<path_to_challenge_model_folder> --checkpoint_path=<path_to_challenge_model_folder>/ckpts/ckpt-20 --dataset_path=<dataset_path> --output_path=<result_folder>
 ```
 
 ---

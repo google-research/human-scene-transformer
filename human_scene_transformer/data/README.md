@@ -11,23 +11,32 @@
 5. Download and extract [Train Detections](https://jrdb.erc.monash.edu/static/downloads/train_detections.zip) from the JRDB 2019 section to `<data_path>/detections`.
 
 ## Get the Leaderboard Test Set Tracks
-Download and extract this leaderboard  [3D tracking result](https://jrdb.erc.monash.edu/leaderboards/download/1605) to `<data_path>/test_dataset/labels/raw_leaderboard/`. Such that you have `<data_path>/test_dataset/labels/raw_leaderboard/00XX.txt` This is the best available leaderboard tracker at the time the code was developed.
 
-## Get the Robot Odometry Preprocessed Keypoints
+### For the JRDB Challenge Dataset
+Download and extract this leaderboard  [3D tracking result](https://jrdb.erc.monash.edu/leaderboards/download/1762) to `<data_path>/test_dataset/labels/PiFeNet/`. Such that you have `<data_path>/test_dataset/labels/PiFeNet/00XX.txt`.
 
-Download the compressed data file [here](https://storage.googleapis.com/gresearch/human_scene_transformer/data.zip).
+### For the Orginal Dataset used in the Paper
+Download and extract this leaderboard  [3D tracking result](https://jrdb.erc.monash.edu/leaderboards/download/1605) to `<data_path>/test_dataset/labels/ss3d_mot/`. Such that you have `<data_path>/test_dataset/labels/ss3d_mot/00XX.txt`. This was the best available leaderboard tracker at the time the method was developed.
 
-Extract the files and move them to `<data_path>/processed/` such that you have `<data_path>/processed/odoemtry_train`,  `<data_path>/processed/odoemtry_test` and `<data_path>/processed/labels/labels_3d_keypoints_train/`, `<data_path>/processed/labels/labels_3d_keypoints_test/`.
+## Get the Robot Odometry
+
+Download the compressed Odometry data file [here](https://storage.googleapis.com/gresearch/human_scene_transformer/odometry.zip).
+
+Extract the files and move them to `<data_path>/processed/` such that you have `<data_path>/processed/odoemtry/train`,  `<data_path>/processed/odoemtry/test`.
 
 Alternatively you can extract the robot odometry from the raw rosbags yourself via `extract_robot_odometry_from_rosbag.py`.
 
-## Create Real-World Tracks for Test Data
+## Get the Preprocessed Keypoints
 
-Adapt `<data_path>` in `jrdb_train_detections_to_tracks.py`
+Download the compressed Keypoints data file [here](https://storage.googleapis.com/gresearch/human_scene_transformer/keypoints.zip).
 
-Then run
+Extract the files and move them to `<data_path>/processed/` such that you have  `<data_path>/processed/labels/labels_3d_keypoints/train/`, `<data_path>/processed/labels/labels_3d_keypoints/test/`.
 
-```python jrdb_train_detections_to_tracks.py```
+## Create Real-World Tracks for Train Data
+
+Run
+
+```python jrdb_train_detections_to_tracks.py --input_path=<data_path>```
 
 ## Dataset Folder
 
@@ -48,22 +57,30 @@ You should end up with a dataset folder of the following structure
     - pointclouds
   - processed
     - labels
-      - labels_3d_keypoints_test
-      - labels_3d_keypoints_train
+      - labels_3d_keypoints
+        - train
+        - test
       - labels_detections_3d
-    - odoemtry_test
-    - odoemetry_train
+    - odoemtry
+      - train
+      - test
 ```
 
 ## Generate the Tensorflow Dataset
-Adapt `<data_path>` in `jrdb_preprocess_train.py` and `jrdb_preprocess_test.py`.
+### For the JRDB Challenge Dataset
+```python jrdb_preprocess_train.py --input_path=<data_path> --output_path=<output_path> --max_distance_to_robot=50.0```
 
-Set `<output_path>` in `jrdb_preprocess_train.py` and `jrdb_preprocess_test.py` to where you want to store the processed tensorflow dataset.
-
-```python jrdb_preprocess_train.py```
-
-```python jrdb_preprocess_test.py```
+```python jrdb_preprocess_test.py --input_path=<data_path> --output_path=<output_path> --max_distance_to_robot=50.0 --tracking_method=PiFeNet --tracking_confidence_threshold=0.01```
 
 Please note that this can take multiple hours due to the processing of the scene's
 pointclouds. If you do not need the pointclouds you can speed up the processing
-by setting `POINTCLOUD=False` in both files.
+by passing `--process_pointclouds=False` for both.
+
+### For the Orginal Dataset used in the Paper
+```python jrdb_preprocess_train.py --input_path=<data_path> --output_path=<output_path> --max_distance_to_robot=15.0```
+
+```python jrdb_preprocess_test.py --input_path=<data_path> --output_path=<output_path> --max_distance_to_robot=15.0 --tracking_method=ss3d_mot```
+
+Please note that this can take multiple hours due to the processing of the scene's
+pointclouds. If you do not need the pointclouds you can speed up the processing
+by passing `--process_pointclouds=False` for both.

@@ -27,7 +27,6 @@ from human_scene_transformer.jrdb import dataset_params as jrdb_dataset_params
 from human_scene_transformer.jrdb import input_fn
 from human_scene_transformer.model import model as hst_model
 from human_scene_transformer.model import model_params
-from human_scene_transformer.model import scene_encoder  # pylint: disable=unused-import
 import pandas as pd
 import tensorflow as tf
 import tqdm
@@ -66,26 +65,26 @@ TIMESTEP_VISIBILITY_THRESHOLD = 6
 
 _MODEL_PATH = flags.DEFINE_string(
     'model_path',
-    '',
-    'Path to model directory.',
+    None,
+    help='Path to model directory.',
 )
 
 _CKPT_PATH = flags.DEFINE_string(
     'checkpoint_path',
-    '',
-    'Path to model checkpoint.',
+    None,
+    help='Path to model checkpoint.',
 )
 
 _DATASET_PATH = flags.DEFINE_string(
     'dataset_path',
-    '',
-    'Path to model checkpoint.',
+    None,
+    help='Path to model checkpoint.',
 )
 
 _OUTPUT_PATH = flags.DEFINE_string(
     'output_path',
-    '',
-    'Path to output.',
+    None,
+    help='Path to output.',
 )
 
 
@@ -374,5 +373,8 @@ def main(argv: Sequence[str]) -> None:
 
 
 if __name__ == '__main__':
+  flags.mark_flags_as_required([
+      'model_path', 'checkpoint_path', 'dataset_path', 'output_path'
+  ])
   logging.set_verbosity(logging.ERROR)
   app.run(main)
