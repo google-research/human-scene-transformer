@@ -52,6 +52,13 @@ _MAX_DISTANCE_TO_ROBOT = flags.DEFINE_float(
           ' in the processed dataset.')
 )
 
+_MAX_PC_DISTANCE_TO_ROBOT = flags.DEFINE_float(
+    'max_pc_distance_to_robot',
+    default=10.,
+    help=('Maximum distance of pointcloud point to the robot to be included'
+          ' in the processed dataset.')
+)
+
 _TRACKING_METHOD = flags.DEFINE_string(
     'tracking_method',
     default='ss3d_mot',
@@ -260,7 +267,8 @@ def jrdb_preprocess_test(input_path, output_path):
       )
 
       filtered_pc = utils.filter_agents_and_ground_from_point_cloud(
-          agents_in_odometry_df, scene_pc_odometry, robot_in_odometry_df
+          agents_in_odometry_df, scene_pc_odometry, robot_in_odometry_df,
+          max_dist=_MAX_PC_DISTANCE_TO_ROBOT.value,
       )
 
       scene_pc_ragged_tensor = tf.ragged.stack(filtered_pc)

@@ -275,12 +275,12 @@ def box_to_hyperplanes(pos, yaw, l, w, h):
 
 
 def filter_agents_and_ground_from_point_cloud(
-    agents_df, pointcloud_dict, robot_in_odometry_df):
+    agents_df, pointcloud_dict, robot_in_odometry_df, max_dist=10.):
   """Filter points which are in human bb or belong to ground."""
   for t, agent_df in agents_df.groupby('timestep'):
     pc_points = pointcloud_dict[t]
     robot_p = robot_in_odometry_df.loc[t]['p'][:2]
-    dist_mask = np.linalg.norm(robot_p - pc_points[..., :2], axis=-1) < 10.
+    dist_mask = np.linalg.norm(robot_p - pc_points[..., :2], axis=-1) < max_dist
     pc_points = pc_points[
         (pc_points[:, -1] > -0.2) & (pc_points[:, -1] < 0.5) & dist_mask]
     for _, row in agent_df.iterrows():
