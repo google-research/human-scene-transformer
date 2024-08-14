@@ -1,4 +1,4 @@
-# Copyright 2023 The human_scene_transformer Authors.
+# Copyright 2024 The human_scene_transformer Authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -471,4 +471,9 @@ class Quaternion(object):
       Returns the string, 'Quaternion([x, y, z, w])', which can be used to
       regenerate the quaternion.
     """
-    return 'Quaternion([%r, %r, %r, %r])' % (self.x, self.y, self.z, self.w)
+    return 'Quaternion([%r, %r, %r, %r])' % (
+        float(self.x),
+        float(self.y),
+        float(self.z),
+        float(self.w),
+    )
